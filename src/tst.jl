@@ -5,19 +5,21 @@ using Plots
 # ---- Cross Sections
 #-----------------------------------------------------------------------------
 
-model = KineticMixing(1e2, 1e3, 1.0, 1e-3)
+model = KineticMixing(1e2, 1e3, 1.0, 1.0)
+cross_section_xx_bb(2 * 6500, model) / (2.56819e-9)
 
-sigma_xx_dd(4e4, model)
-sigma_xx_ss(4e4, model)
-sigma_xx_bb(4e4, model)
-sigma_xx_ee(4e4, model)
-sigma_xx_μμ(4e4, model)
-sigma_xx_ττ(4e4, model)
-sigma_xx_νν(4e4, model)
-sigma_xx_uu(4e4, model)
-sigma_xx_cc(4e4, model)
-sigma_xx_tt(4e4, model)
-sigma_xx_vv(4e4, model)
+
+cross_section_xx_dd(4e4, model)
+cross_section_xx_ss(4e4, model)
+cross_section_xx_bb(4e4, model)
+cross_section_xx_ee(4e4, model)
+cross_section_xx_μμ(4e4, model)
+cross_section_xx_ττ(4e4, model)
+cross_section_xx_νν(4e4, model)
+cross_section_xx_uu(4e4, model)
+cross_section_xx_cc(4e4, model)
+cross_section_xx_tt(4e4, model)
+cross_section_xx_vv(4e4, model)
 
 @code_typed sigma_xx_tot(4e2, model)
 
