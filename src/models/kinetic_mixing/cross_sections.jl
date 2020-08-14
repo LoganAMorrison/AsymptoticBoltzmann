@@ -184,7 +184,7 @@ function cross_section_xx_tot(Q::Real, model::KineticMixing)
 end
 
 
-function thermal_cross_section_xx_tot(x::Float64, model::KineticMixing)
+function thermal_cross_section(x::Float64, model::KineticMixing)
     den = 2 * besselkx(2, x)
     pf = x / den^2 / 2
 
@@ -213,7 +213,7 @@ function thermal_cross_section_xx_tot(x::Float64, model::KineticMixing)
     end
 end
 
-function thermal_cross_section_xx_tot(x::Real, model::KineticMixing)
+function thermal_cross_section(x::Real, model::KineticMixing)
     den = 2 * besselk(2, x)
     pf = x / den^2 / 2
 

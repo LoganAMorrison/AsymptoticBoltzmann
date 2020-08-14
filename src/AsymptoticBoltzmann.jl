@@ -6,6 +6,7 @@ using QuadGK
 using Interpolations
 using CSV
 using DifferentialEquations
+using Roots
 
 include("constants.jl")
 include("standard_model/standard_model.jl")
