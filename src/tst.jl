@@ -65,15 +65,25 @@ end
 #-----------------------------------------------------------------------------
 
 using ODEInterfaceDiffEq
+using ODEInterface
 
-@code_warntype sm_geff(1.0)
+model = KineticMixing(1e2, 1e3, 1.0, 1.0)
 
-xspan = (0.1, 1000.0)
+xspan = (1, 1000.0)
 logxspan = (log(xspan[1]), log(xspan[2]))
 u0 = [weq(model.mx / xspan[1], model.mx, 2.0, 1)]
 f = ODEFunction(boltzmann!, jac = boltzmann_jac!)
-
 prob = ODEProblem(boltzmann!, u0, logxspan, model)
+sol_radauIIA = solve(prob, alg = RadauIIA5(), reltol = 1e-12, abstol = 1e-12)
+#exp(sol_radauIIA.u[end][1]) * model.mx * S_TODAY / RHO_CRIT / (2.03163e-2)
+exp(sol_radauIIA.u[end][1]) * model.mx * S_TODAY / RHO_CRIT / (2.12760e-1)
+
+thermal_cross_section_xx_tot(1.0, model) / (2.56819e-9)
+thermal_cross_section_xx_tot(2.0, model) / (2.56819e-9)
+thermal_cross_section_xx_tot(3.0, model) / (2.56819e-9)
+thermal_cross_section_xx_tot(4.0, model) / (2.56819e-9)
+thermal_cross_section_xx_tot(5.0, model) / (2.56819e-9)
+
 
 sol_radau = solve(prob, alg = radau5(), reltol = 1e-9, abstol = 1e-9)
 sol_rodas = solve(prob, alg = rodas(), reltol = 1e-9, abstol = 1e-9)
@@ -94,4 +104,4 @@ plot!(sol_seulex)
 plot!(sol_ros23)
 plot!(sol_radauIIA)
 
-sol_radauIIA.u[end]
+exp(sol_radauIIA.u[end][1]) * model.mx * S_TODAY / RHO_CRIT / (0.674)^2
