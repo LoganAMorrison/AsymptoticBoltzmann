@@ -64,36 +64,34 @@ end
 
 using ODEInterfaceDiffEq
 
-@code_warntype sm_geff(1.0)
+MV = 1e3
+EPS = 1e-3
+GVXX = 1.0
+rs = LinRange(0.1, 0.6, 50)
+mxs = MV .* rs
 
-xspan = (0.1, 1000.0)
-logxspan = (log(xspan[1]), log(xspan[2]))
-u0 = [weq(model.mx / xspan[1], model.mx, 2.0, 1)]
-f = ODEFunction(boltzmann!, jac = boltzmann_jac!)
-
-prob = ODEProblem(boltzmann!, u0, logxspan, model)
-
-sol_radau = solve(prob, alg = radau5(), reltol = 1e-9, abstol = 1e-9)
-sol_rodas = solve(prob, alg = rodas(), reltol = 1e-9, abstol = 1e-9)
-sol_seulex = solve(prob, alg = seulex(), reltol = 1e-9, abstol = 1e-9)
-sol_ros23 = solve(prob, alg = Rosenbrock23(), reltol = 1e-9, abstol = 1e-9)
+rds = Array{Tuple{Float64, Float64, Float64}}(undef, length(rs))
 
 
-xspan = (BigFloat(0.1), BigFloat(1000.0))
-logxspan = (log(xspan[1]), log(xspan[2]))
-u0 = [BigFloat(weq(model.mx / Float64(xspan[1]), model.mx, 2.0, 1))]
-f = ODEFunction(boltzmann!, jac = boltzmann_jac!)
-sol_radauIIA =
-    solve(prob, alg = RadauIIA5(), reltol = BigFloat(1e-20), abstol = 1e-20)
+
+for i in 1:length(mxs)
+    mx = mxs[i]
+    model = KineticMixing(mx, MV, GVXX, EPS)
+    α = (MV - 2*mx) / mx
+    try
+    rds[i] = (
+        compute_relic_density_mpu(model),
+        compute_relic_density_mpu(model, α),
+        compute_relic_density_radau(model)
+    )
+catch
+    rds[i] = (
+        NaN,NaN,NaN
+    )
+end
+end
 
 
-plot(sol_radau)
-plot!(sol_rodas)
-plot!(sol_seulex)
-plot!(sol_ros23)
-plot!(sol_radauIIA)
-
-sol_radauIIA.u[end]
 
 #-----------------------------------------------------------------------------
 # ---- other ------------------------------------------------
