@@ -27,9 +27,10 @@ function mx_scan(mxs, mv, gvxx, eps)
         end
 
         try
+            α = max((mv - 2mx) / mx, 0.0)
             rds[i, 3] = AsymptoticBoltzmann.relic_density(
                 model,
-                AsymptoticBoltzmann.MPU(α = (mv - 2mx) / mx),
+                AsymptoticBoltzmann.MPU(α=α),
             )
         catch
             rds[i, 3] = NaN
@@ -38,12 +39,24 @@ function mx_scan(mxs, mv, gvxx, eps)
     rds
 end
 
-begin
+rds = begin
     MV = 1e3
     EPS = 1e-3
     GVXX = 1.0
-    rs = LinRange(0.1, 0.6, 20)
+    rs = LinRange(0.1, 0.6, 150)
     mxs = rs .* MV
 
     mx_scan(mxs, MV, GVXX, EPS)
 end
+
+using Plots
+
+
+plot(LinRange(0.1, 0.6, 150),
+    abs.(rds[:,1] - rds[:,2]) ./ rds[:,1],
+    yaxis=:log
+)
+plot!(LinRange(0.1, 0.6, 150),
+    abs.(rds[:,1] - rds[:,3]) ./ rds[:,1],
+    yaxis=:log
+)
