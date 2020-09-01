@@ -7,24 +7,26 @@ using Plots
 
 model = KineticMixing(1e2, 1e3, 1.0, 1e-3)
 
-sigma_xx_dd(4e4, model)
-sigma_xx_ss(4e4, model)
-sigma_xx_bb(4e4, model)
-sigma_xx_ee(4e4, model)
-sigma_xx_μμ(4e4, model)
-sigma_xx_ττ(4e4, model)
-sigma_xx_νν(4e4, model)
-sigma_xx_uu(4e4, model)
-sigma_xx_cc(4e4, model)
-sigma_xx_tt(4e4, model)
-sigma_xx_vv(4e4, model)
+cross_section_xx_dd(4e4, model)
+cross_section_xx_ss(4e4, model)
+cross_section_xx_bb(4e4, model)
+cross_section_xx_ee(4e4, model)
+cross_section_xx_μμ(4e4, model)
+cross_section_xx_ττ(4e4, model)
+cross_section_xx_νν(4e4, model)
+cross_section_xx_uu(4e4, model)
+cross_section_xx_cc(4e4, model)
+cross_section_xx_tt(4e4, model)
+cross_section_xx_vv(4e4, model)
 
-@code_typed sigma_xx_tot(4e2, model)
+@code_warntype dm_annihilation_cross_section(4e2, model)
+
+model.width_v
 
 begin
-    model = KineticMixing(1e2, 1e3, 1.0, 1e-3)
-    cmes = 10 .^ LinRange(log10(2.001model.mx), log10(100model.mx), 1000)
-    cs = [cross_section_xx_tot(cme, model) for cme in cmes]
+    model = KineticMixing(350.0, 1e3, 1.0, 1e-2)
+    cmes = 10 .^ LinRange(log10(2.001model.mx), log10(4000), 1000)
+    cs = [dm_annihilation_cross_section(cme, model) for cme in cmes]
 
     plot(cmes, cs, xaxis = :log, yaxis = :log)
 end
@@ -35,7 +37,7 @@ end
 
 begin
     model = KineticMixing(9e2, 1e3, 1.0, 1e-3)
-    xs = 10 .^ LinRange(-1.0, 3.0, 150)
+    xs = 10 .^ LinRange(-1.0, 3.0, 500)
     tcs = [dm_thermal_cross_section(x, model) for x in xs]
 
     plot(xs, tcs, xaxis = :log, yaxis = :log)

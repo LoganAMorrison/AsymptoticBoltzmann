@@ -1,24 +1,24 @@
 # Various physical constants
-const G_FERMI = 1.1663787e-5;
+const G_FERMI = 0.000011663787;
 const HIGGS_VEV = 246.21965;
-const ALPHA_EM = 1.0 / 137.0; # at p^2 = 0
+const ALPHA_EM = 0.0078125; # at p^2 = 0
 const SIN_THETA_WEAK = 0.480853;
 const SIN_THETA_WEAK_SQRD = 0.23122;
 const COS_THETA_WEAK = 0.876801;
-const M_PLANK = 1.220910e19;
-const RHO_CRIT = 1.05375e-5;
+const M_PLANK = 1.220890e19;
+const RHO_CRIT = 0.0000105375;
 const S_TODAY = 2891.2;
 const T_CMB = 2.56215e-10;
 const T_BBN = 0.0001; # 0.1 MeV in GeV
 const OMEGA_H2_CDM = 0.1198;
 
 # Masses
-const ELECTRON_MASS = 0.5109989461e-3;
-const MUON_MASS = 105.6583745e-3;
-const TAU_MASS = 1776.86e-3;
-const UP_QUARK_MASS = 2.16e-3;
-const DOWN_QUARK_MASS = 4.67e-3;
-const STRANGE_QUARK_MASS = 93e-3;
+const ELECTRON_MASS = 0.0005109989461;
+const MUON_MASS = 0.1056583745;
+const TAU_MASS = 1.77686;
+const UP_QUARK_MASS = 0.00216;
+const DOWN_QUARK_MASS = 0.00467;
+const STRANGE_QUARK_MASS = 0.093;
 const CHARM_QUARK_MASS = 1.27;
 const BOTTOM_QUARK_MASS = 4.18;
 const TOP_QUARK_MASS = 172.9;
@@ -34,4 +34,4 @@ const CHARGED_KAON_MASS = 493.68e-3;
 # Boson widths
 const W_BOSON_WIDTH = 2.085;
 const Z_BOSON_WIDTH = 2.4952;
-const HIGGS_WIDTH = 4.07e-3;
+const HIGGS_WIDTH = 0.00407;

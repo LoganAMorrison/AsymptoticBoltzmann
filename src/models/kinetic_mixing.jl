@@ -495,7 +495,7 @@ temperatue `x=mx/T`
 """
 function dm_thermal_cross_section(x::Float64, model::KineticMixing)
     den = 2 * besselkx(2, x)
-    pf = x / den^2 / 2
+    pf = x / den^2
 
     integrand(z::Real) = (
         dm_annihilation_cross_section(model.mx * z, model) *
@@ -516,7 +516,7 @@ temperatue `x=mx/T`
 """
 function dm_thermal_cross_section(x::Real, model::KineticMixing)
     den = 2 * besselk(2, x)
-    pf = x / den^2 / 2
+    pf = x / den^2
 
     integrand(z::Real) = (
         dm_annihilation_cross_section(model.mx * z, model) *
